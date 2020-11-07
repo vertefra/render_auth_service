@@ -1,0 +1,29 @@
+{% extends "layout.html"%}
+{% block body %}
+    <header>
+        <h4 class="brand">VerteAuth Login v0.0.1</h4>
+    </header>
+    <div class="formContainer">
+        <form>
+            <label>username</label>
+            <input 
+                id="username" 
+                name="username" 
+                placeholder="username"
+                type="text"/>
+            <label>password</label>
+            <input
+                id="password"
+                name="password"
+                placeholder="password"
+                type="text"
+            />
+            <button 
+                type="button"
+                id="submitBtn"
+                name={{ID}} 
+            >login</button>
+        </form>
+    </div>
+        <script src="{{ url_for('static', path='/script.js' )}}"></script>
+{% endblock %}
