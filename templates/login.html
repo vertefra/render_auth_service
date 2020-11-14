@@ -25,5 +25,7 @@
             >login</button>
         </form>
     </div>
-        <script src="{{ url_for('static', path='/script.js' )}}"></script>
+    <div id="server" data-server={{server}}></div>
+        <script const src="{{ url_for('static', path='/script.js' )}}">
+        </script>
 {% endblock %}

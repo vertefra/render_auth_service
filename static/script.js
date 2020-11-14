@@ -1,4 +1,6 @@
-console.log('sanity')
+
+const server = document.getElementById("server")
+console.log(server.dataset.server)
 
 const form = {
   username: '',
@@ -16,7 +18,7 @@ submitButton.onclick = async ev => {
   try {
     // fetch on the accountHandler
     const res = await fetch(
-      `https://verte-auth-server.herokuapp.com/api/users/${ev.target.name}/accounts/login`,
+      `${server}${ev.target.name}/accounts/login`,
       {
         method: 'POST',
         headers: {
@@ -29,15 +31,39 @@ submitButton.onclick = async ev => {
       }
     )
     const data = await res.json()
-    console.log(data)
     if (!data.success) {
       warningText.innerHTML = data.error
     }
     usernameInput.value = ''
     passwordInput.value = ''
+
+    const red = await fetchRedirectUrl(data.redirectURL, data.token)
+    console.log(red)
+
   } catch (err) {
     console.log(err)
     usernameInput.value = ''
     passwordInput.value = ''
+  }
+}
+
+
+// send the redirect url to the server that will trigger the redirect response
+// with authorization token in the header
+
+const fetchRedirectUrl = async (redirectURL, token) => {
+  try {
+  const res = await fetch(`/redirect`, {
+    method: "POST",
+    headers: {
+      "Authorization": token,
+      "Content-Type": "Application/json"
+    },
+    body: JSON.stringify(redirectURL)
+  })
+  return res
+
+  } catch(err) {
+    return err
   }
 }

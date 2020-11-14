@@ -27,7 +27,7 @@ class DevSettings():
         self.ENV = "development"
         self.PORT = 5000
         self.HOST = '127.0.0.1'
-        self.GO_SERVER = "https://verte-auth-server.herokuapp.com/"
+        self.GO_SERVER = "http://127.0.0.1:4999/"
 
 
 class ProdSettings(BaseSettings):

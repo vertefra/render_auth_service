@@ -11,6 +11,7 @@ if he has a valid account under the project with ID == user_id
 will receive authentication token and redirectURL.
 
 redirectURL is the url of the project that needs authentication.
+It's stored i
 
 
 ### Running the server:
