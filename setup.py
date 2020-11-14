@@ -33,6 +33,6 @@ class DevSettings():
 class ProdSettings(BaseSettings):
     def __init__(self):
         self.ENV = "production"
-        self.PORT = os.environ.get('PORT')
+        self.PORT = int(os.environ.get('PORT'))
         self.HOST = '0.0.0.0'
         self.GO_SERVER = "https://verte-auth-server.herokuapp.com/"
