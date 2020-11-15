@@ -1,6 +1,6 @@
 
-const server = document.getElementById("server")
-console.log(server.dataset.server)
+const serverEl = document.getElementById("server")
+const server = serverEl.dataset.server
 
 const form = {
   username: '',
@@ -18,7 +18,7 @@ submitButton.onclick = async ev => {
   try {
     // fetch on the accountHandler
     const res = await fetch(
-      `${server}${ev.target.name}/accounts/login`,
+      `${server}api/users/${ev.target.name}/accounts/login`,
       {
         method: 'POST',
         headers: {
@@ -37,8 +37,11 @@ submitButton.onclick = async ev => {
     usernameInput.value = ''
     passwordInput.value = ''
 
-    const red = await fetchRedirectUrl(data.redirectURL, data.token)
-    console.log(red)
+    
+    const response = await fetchRedirectUrl(data.redirectURL, data.token)
+
+    console.log(response)
+    
 
   } catch (err) {
     console.log(err)
@@ -52,15 +55,16 @@ submitButton.onclick = async ev => {
 // with authorization token in the header
 
 const fetchRedirectUrl = async (redirectURL, token) => {
-  try {
-  const res = await fetch(`/redirect`, {
-    method: "POST",
+  try {  
+  const res = await fetch(redirectURL, {
+    method: "GET",
     headers: {
-      "Authorization": token,
-      "Content-Type": "Application/json"
+      "Set-Cookie": JSON.stringify({"token":token})
     },
-    body: JSON.stringify(redirectURL)
+    redirect:"follow"
+    
   })
+
   return res
 
   } catch(err) {
